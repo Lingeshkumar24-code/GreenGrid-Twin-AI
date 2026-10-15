@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  /* Placeholder system-font stacks: this sandbox cannot reach fonts.googleapis.com
+     to verify a next/font/google build. Vercel's build servers have full internet
+     access, so swapping in next/font/google (e.g. Space Grotesk + Inter) is safe
+     there -- see docs/ARCHITECTURE.md for the exact snippet to restore. */
+  --font-display: "Avenir Next", "Segoe UI Semibold", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Segoe UI", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}

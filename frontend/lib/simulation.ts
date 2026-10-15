@@ -1,0 +1,53 @@
+export type SimulationSnapshot = {
+  hour: number;
+  minute: number;
+  occupied: boolean;
+  students: number;
+  classroomLoadKw: number;
+  classroomSavingsKw: number;
+  solarKw: number;
+  windKw: number;
+  renewableKw: number;
+  gridKw: number;
+  evCount: number;
+  otherVehicleCount: number;
+  vehicleKgCo2PerHour: number;
+  vehicleAvoidedKgPerHour: number;
+  foodWasteKgPerDay: number;
+  biogasKwhPerDay: number;
+  biogasKgCo2Avoided: number;
+  dailyCostSaving: number;
+  gridOnlyDailyCost: number;
+  annualCostSaving: number;
+  installCost: number;
+  paybackYears: number;
+};
+
+export function getSimulationSnapshot(hour: number): SimulationSnapshot {
+  const normalized = ((hour % 24) + 24) % 24;
+  const occupied = normalized >= 8 && normalized < 17;
+  const students = occupied ? 128 : 0;
+  const classroomLoadKw = occupied ? 18.4 : 0;
+  const classroomSavingsKw = occupied ? 0 : 18.4;
+  const daylight = Math.max(0, Math.sin(((normalized - 6) / 12) * Math.PI));
+  const windFactor = 0.55 + 0.22 * Math.sin((normalized / 24) * Math.PI * 2 + 1.1);
+  const solarKw = Number((42 * daylight).toFixed(1));
+  const windKw = Number((18 * Math.max(0.2, windFactor)).toFixed(1));
+  const renewableKw = Number((solarKw + windKw).toFixed(1));
+  const campusDemandKw = 275.7 + (occupied ? 22 : -12);
+  const gridKw = Number(Math.max(0, campusDemandKw - renewableKw).toFixed(1));
+  const evCount = 2;
+  const otherVehicleCount = 3;
+  const vehicleKgCo2PerHour = Number((otherVehicleCount * 0.18).toFixed(2));
+  const vehicleAvoidedKgPerHour = Number((evCount * 0.18).toFixed(2));
+  const foodWasteKgPerDay = 84;
+  const biogasKwhPerDay = Number((foodWasteKgPerDay * 0.42).toFixed(1));
+  const biogasKgCo2Avoided = Number((foodWasteKgPerDay * 0.27).toFixed(1));
+  const tariffInr = 15;
+  const dailyCostSaving = Number(((solarKw + windKw + biogasKwhPerDay / 24) * tariffInr + (vehicleAvoidedKgPerHour * 8)).toFixed(0));
+  const gridOnlyDailyCost = Number(((campusDemandKw * 24) * tariffInr).toFixed(0));
+  const annualCostSaving = Number((dailyCostSaving * 365).toFixed(0));
+  const installCost = 18400000;
+  const paybackYears = Number((installCost / Math.max(1, dailyCostSaving * 365)).toFixed(1));
+  return { hour: normalized, minute: Math.round(((hour % 1) + 1) % 1 * 60), occupied, students, classroomLoadKw, classroomSavingsKw, solarKw, windKw, renewableKw, gridKw, evCount, otherVehicleCount, vehicleKgCo2PerHour, vehicleAvoidedKgPerHour, foodWasteKgPerDay, biogasKwhPerDay, biogasKgCo2Avoided, dailyCostSaving, gridOnlyDailyCost, annualCostSaving, installCost, paybackYears };
+}

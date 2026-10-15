@@ -1,0 +1,164 @@
+{
+    "id": "campus-main",
+    "name": "GreenGrid Main Campus",
+    "data_mode": "demo",
+    "building_count": 6,
+    "total_current_power_kw": 275.7,
+    "total_daily_energy_kwh": 3950.0,
+    "total_daily_water_liters": 22400.0,
+    "average_occupancy_percent": 61.17,
+    "average_sustainability_score": 69.0,
+    "buildings": [
+        {
+            "id": "bldg-academic-a",
+            "name": "Academic Block A",
+            "type": "academic",
+            "status": "nominal",
+            "position": [
+                -18.0,
+                0.0,
+                -10.0
+            ],
+            "footprint": [
+                10.0,
+                14.0,
+                8.0
+            ],
+            "floors": 4,
+            "current_power_kw": 42.5,
+            "daily_energy_kwh": 610.0,
+            "daily_water_liters": 3200.0,
+            "occupancy_percent": 68.0,
+            "sustainability_score": 82,
+            "has_solar": true,
+            "last_updated": "2026-10-15T09:00:00Z",
+            "data_mode": "demo"
+        },
+        {
+            "id": "bldg-academic-b",
+            "name": "Academic Block B",
+            "type": "academic",
+            "status": "advisory",
+            "position": [
+                -2.0,
+                0.0,
+                -10.0
+            ],
+            "footprint": [
+                10.0,
+                12.0,
+                8.0
+            ],
+            "floors": 3,
+            "current_power_kw": 58.1,
+            "daily_energy_kwh": 790.0,
+            "daily_water_liters": 2800.0,
+            "occupancy_percent": 54.0,
+            "sustainability_score": 63,
+            "has_solar": false,
+            "last_updated": "2026-10-15T09:00:00Z",
+            "data_mode": "demo"
+        },
+        {
+            "id": "bldg-library",
+            "name": "Central Library",
+            "type": "library",
+            "status": "nominal",
+            "position": [
+                14.0,
+                0.0,
+                -8.0
+            ],
+            "footprint": [
+                12.0,
+                10.0,
+                10.0
+            ],
+            "floors": 2,
+            "current_power_kw": 21.3,
+            "daily_energy_kwh": 340.0,
+            "daily_water_liters": 900.0,
+            "occupancy_percent": 71.0,
+            "sustainability_score": 88,
+            "has_solar": true,
+            "last_updated": "2026-10-15T09:00:00Z",
+            "data_mode": "demo"
+        },
+        {
+            "id": "bldg-hostel-1",
+            "name": "Hostel Block 1",
+            "type": "hostel",
+            "status": "critical",
+            "position": [
+                -20.0,
+                0.0,
+                14.0
+            ],
+            "footprint": [
+                9.0,
+                20.0,
+                9.0
+            ],
+            "floors": 6,
+            "current_power_kw": 74.8,
+            "daily_energy_kwh": 1120.0,
+            "daily_water_liters": 9800.0,
+            "occupancy_percent": 91.0,
+            "sustainability_score": 47,
+            "has_solar": false,
+            "last_updated": "2026-10-15T09:00:00Z",
+            "data_mode": "demo"
+        },
+        {
+            "id": "bldg-lab-1",
+            "name": "Engineering Laboratory",
+            "type": "laboratory",
+            "status": "advisory",
+            "position": [
+                2.0,
+                0.0,
+                12.0
+            ],
+            "footprint": [
+                11.0,
+                8.0,
+                9.0
+            ],
+            "floors": 2,
+            "current_power_kw": 63.4,
+            "daily_energy_kwh": 880.0,
+            "daily_water_liters": 1600.0,
+            "occupancy_percent": 38.0,
+            "sustainability_score": 58,
+            "has_solar": false,
+            "last_updated": "2026-10-15T09:00:00Z",
+            "data_mode": "demo"
+        },
+        {
+            "id": "bldg-cafeteria",
+            "name": "Cafeteria",
+            "type": "cafeteria",
+            "status": "nominal",
+            "position": [
+                18.0,
+                0.0,
+                10.0
+            ],
+            "footprint": [
+                9.0,
+                6.0,
+                9.0
+            ],
+            "floors": 1,
+            "current_power_kw": 15.6,
+            "daily_energy_kwh": 210.0,
+            "daily_water_liters": 4100.0,
+            "occupancy_percent": 45.0,
+            "sustainability_score": 76,
+            "has_solar": false,
+            "last_updated": "2026-10-15T09:00:00Z",
+            "data_mode": "demo"
+        }
+    ],
+    "generated_at": "2026-10-15T09:00:00Z"
+}

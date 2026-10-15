@@ -1,0 +1,10 @@
+
+> greengrid-twin-ai-frontend@0.1.0 dev
+> next dev --hostname 0.0.0.0 --port 3002
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3002
+  - Network:      http://0.0.0.0:3002
+
+ ✓ Starting...
+ ✓ Ready in 4s
