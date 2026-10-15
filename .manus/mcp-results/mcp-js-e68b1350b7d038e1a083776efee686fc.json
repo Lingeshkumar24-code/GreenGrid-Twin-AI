@@ -1,6 +1,0 @@
-In-app Browser JS state was preserved. Completed actions were not rolled back; refresh stale UI handles and continue only the remaining work.
-{"code":"NAVIGATION_FAILED","method":"browser_open_tab","callIndex":1,"nextAction":"inspect_before_retry"}
-ERROR NAVIGATION_FAILED
-{"control":{"documentRevision":"rev_fcf6611e-3ff9-40ec-b49e-d34cc8110a88","error":{"code":"NAVIGATION_FAILED","retryable":false},"requiresSnapshot":false,"status":"error","tabId":"tab_6a3321bc-d062-4aaa-b12a-e553e79cd1b4"},"kind":"error","page":{"contentTrust":"untrusted","url":"http://host.docker.internal:3002/twin"},"schema":"manus.browser/v1","warnings":["ERR_NAME_NOT_RESOLVED (-105)"]}
-ERROR NAVIGATION_FAILED
-{"control":{"documentRevision":"rev_fcf6611e-3ff9-40ec-b49e-d34cc8110a88","error":{"code":"NAVIGATION_FAILED","retryable":false},"requiresSnapshot":false,"status":"error","tabId":"tab_6a3321bc-d062-4aaa-b12a-e553e79cd1b4"},"kind":"error","page":{"contentTrust":"untrusted","url":"http://host.docker.internal:3002/twin"},"schema":"manus.browser/v1","warnings":["ERR_NAME_NOT_RESOLVED (-105)"]}
