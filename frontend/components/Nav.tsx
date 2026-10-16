@@ -7,7 +7,7 @@ const SECTIONS: { label: string; href: string | null }[] = [
   { label: "Campus Overview", href: "/" },
   { label: "3D Digital Twin", href: "/twin" },
   { label: "Energy Monitoring", href: null },
-  { label: "Classroom Occupancy", href: null },
+  { label: "Classroom Occupancy", href: "/occupancy" },
   { label: "Building Sustainability", href: null },
   { label: "Renewable Energy", href: null },
   { label: "Water Monitoring", href: null },

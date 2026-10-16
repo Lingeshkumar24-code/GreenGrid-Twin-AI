@@ -3,7 +3,7 @@ services:
     name: greengrid-twin-api
     runtime: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements-cpu.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/v1/health
     envVars:
@@ -21,3 +21,15 @@ services:
         sync: false
       - key: GROQ_MODEL
         value: openai/gpt-oss-20b
+      - key: VISION_MODEL_WEIGHTS
+        value: yolo26n.pt
+      - key: VISION_CONFIDENCE
+        value: "0.35"
+      - key: VISION_SAMPLE_EVERY
+        value: "5"
+      - key: VISION_MAX_UPLOAD_MB
+        value: "50"
+      - key: VISION_MAX_VIDEO_SECONDS
+        value: "120"
+      - key: VISION_EMPTY_CONFIRM_SECONDS
+        value: "60"

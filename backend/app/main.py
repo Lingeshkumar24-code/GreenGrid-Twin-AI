@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.v1.routes import router as v1_router
+from app.api.v1.vision_routes import router as vision_router
 from app.core.config import get_settings
 
 settings = get_settings()
@@ -27,6 +28,7 @@ app.add_middleware(
 )
 
 app.include_router(v1_router)
+app.include_router(vision_router)
 
 
 @app.exception_handler(Exception)
