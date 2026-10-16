@@ -4,7 +4,7 @@ GreenGrid Twin AI is a smart-campus digital twin demo. It combines a campus dash
 
 > **Demo data is simulated.** Campus-wide energy, water, cost, mobility, and renewable figures are illustrative. Classroom occupants and classroom energy are produced by a deterministic simulation. Computer-vision occupancy comes from a user-uploaded image or video; it is not a live camera feed.
 
-**Live app:** [greengrid-twin-ai.vercel.app](https://green-grid-twin-ai.vercel.app/)
+**Live app:** [greengrid-twin-ai.vercel.app](https://green-grid-twin-ai.vercel.app/) · **3D Digital Twin:** [Open the deployed twin](https://green-grid-twin-ai.vercel.app/twin)
 
 ## Screenshots
 
