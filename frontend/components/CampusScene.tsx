@@ -14,12 +14,12 @@ const STATUS_COLOR: Record<string, string> = {
 };
 
 const BUILDING_MATERIALS: Record<string, string> = {
-  academic: "#36566B",
-  hostel: "#5E526A",
-  laboratory: "#3F6266",
-  library: "#74624A",
-  cafeteria: "#69513E",
-  administration: "#4D5F70",
+  academic: "#6E9DB1",
+  hostel: "#9A7FA6",
+  laboratory: "#6EA8A8",
+  library: "#B99A68",
+  cafeteria: "#B47D5D",
+  administration: "#7898AE",
 };
 
 function WindowBand({ width, height, depth, floors }: { width: number; height: number; depth: number; floors: number }) {
@@ -33,7 +33,7 @@ function WindowBand({ width, height, depth, floors }: { width: number; height: n
       windows.push(
         <mesh key={`${row}-${column}`} position={[x, y, depth / 2 + 0.035]}>
           <boxGeometry args={[0.72, Math.min(1.05, height / rows * 0.48), 0.05]} />
-          <meshStandardMaterial color="#A8D9D2" emissive="#4E8D87" emissiveIntensity={0.16} roughness={0.22} metalness={0.3} />
+          <meshStandardMaterial color="#E8FAF4" emissive="#76CFC0" emissiveIntensity={0.34} roughness={0.22} metalness={0.3} />
         </mesh>,
       );
     }
@@ -120,11 +120,11 @@ function CampusGround({ buildings }: { buildings: Building[] }) {
   const trees = useMemo(() => [[-31, 0, -22], [-29, 0, -4], [-30, 0, 23], [-8, 0, 25], [9, 0, 27], [29, 0, 23], [31, 0, -18], [8, 0, -22]] as [number, number, number][], []);
   const lamps = useMemo(() => [[-14, 0, 1], [12, 0, 1], [-28, 0, 6], [28, 0, 6], [-7, 0, -23], [8, 0, -23]] as [number, number, number][], []);
   return <>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow position={[0, -0.01, 0]}><planeGeometry args={[140, 140]} /><meshStandardMaterial color="#13241D" roughness={0.95} /></mesh>
-    <mesh position={[0, 0.015, 0]} receiveShadow><boxGeometry args={[7, 0.04, 70]} /><meshStandardMaterial color="#263B3B" roughness={0.9} /></mesh>
-    <mesh position={[0, 0.02, 0]} receiveShadow><boxGeometry args={[70, 0.04, 7]} /><meshStandardMaterial color="#263B3B" roughness={0.9} /></mesh>
-    <mesh position={[0, 0.03, -1]} receiveShadow><boxGeometry args={[70, 0.05, 1.4]} /><meshStandardMaterial color="#789A8B" roughness={0.96} /></mesh>
-    <mesh position={[0, 0.035, -1]}><boxGeometry args={[68, 0.02, 0.06]} /><meshStandardMaterial color="#D6D9B4" emissive="#A8BF8C" emissiveIntensity={0.12} /></mesh>
+    <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow position={[0, -0.01, 0]}><planeGeometry args={[140, 140]} /><meshStandardMaterial color="#86A98E" roughness={0.95} /></mesh>
+    <mesh position={[0, 0.015, 0]} receiveShadow><boxGeometry args={[7, 0.04, 70]} /><meshStandardMaterial color="#65777B" roughness={0.9} /></mesh>
+    <mesh position={[0, 0.02, 0]} receiveShadow><boxGeometry args={[70, 0.04, 7]} /><meshStandardMaterial color="#65777B" roughness={0.9} /></mesh>
+    <mesh position={[0, 0.03, -1]} receiveShadow><boxGeometry args={[70, 0.05, 1.4]} /><meshStandardMaterial color="#B7C5AC" roughness={0.96} /></mesh>
+    <mesh position={[0, 0.035, -1]}><boxGeometry args={[68, 0.02, 0.06]} /><meshStandardMaterial color="#FFF2B5" emissive="#D4C47C" emissiveIntensity={0.2} /></mesh>
     {trees.map((position, index) => <Tree key={`tree-${index}`} position={position} scale={index % 3 === 0 ? 1.15 : 0.85} />)}
     {lamps.map((position, index) => <LampPost key={`lamp-${index}`} position={position} />)}
     <Html position={[0, 0.18, -1]} center distanceFactor={24}><div className="pointer-events-none rounded-full border border-emerald-200/20 bg-emerald-950/40 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-emerald-100/70">GreenGrid Main Campus</div></Html>
@@ -141,9 +141,9 @@ function Student({ index, entering }: { index: number; entering: boolean }) {
     const col = index % 6;
     const x = -6.2 + col * 2.1;
     const z = -28.7 + row * 0.55;
-    if (student.current) { student.current.position.x = entering ? THREE.MathUtils.lerp(-13, x, Math.min(1, progress * 2)) : THREE.MathUtils.lerp(x, 13, Math.min(1, progress * 2)); student.current.position.z = z; student.current.position.y = 0.45 + Math.abs(Math.sin(clock.getElapsedTime() * 5 + index)) * 0.04; }
+    if (student.current) { student.current.position.x = entering ? THREE.MathUtils.lerp(-4.2, x, Math.min(1, progress * 2)) : THREE.MathUtils.lerp(x, -4.2, Math.min(1, progress * 2)); student.current.position.z = z; student.current.position.y = 0.45 + Math.abs(Math.sin(clock.getElapsedTime() * 5 + index)) * 0.04; }
   });
-  return <group ref={student} position={[-13, 0.45, -28.7]}><mesh castShadow><capsuleGeometry args={[0.18, 0.5, 4, 8]} /><meshStandardMaterial color={index % 3 === 0 ? "#F2B880" : index % 3 === 1 ? "#8DD6D0" : "#C8A7E8"} roughness={0.6} /></mesh><mesh position={[0, 0.5, 0]}><sphereGeometry args={[0.2, 10, 8]} /><meshStandardMaterial color="#EAC29A" /></mesh></group>;
+  return <group ref={student} position={[-4.2, 0.45, -28.7]}><mesh castShadow><capsuleGeometry args={[0.18, 0.5, 4, 8]} /><meshStandardMaterial color={index % 3 === 0 ? "#F2B880" : index % 3 === 1 ? "#8DD6D0" : "#C8A7E8"} roughness={0.6} /></mesh><mesh position={[0, 0.5, 0]}><sphereGeometry args={[0.2, 10, 8]} /><meshStandardMaterial color="#EAC29A" /></mesh></group>;
 }
 
 function ClassroomAutomation({ demoRunning }: { demoRunning: boolean }) {
@@ -171,14 +171,16 @@ function ClassroomAutomation({ demoRunning }: { demoRunning: boolean }) {
 
 function WindTurbine({ position }: { position: [number, number, number] }) {
   const blades = useRef<THREE.Group>(null);
-  useFrame(() => { if (blades.current) blades.current.rotation.z += 0.045; });
+  useFrame(() => { if (blades.current) blades.current.rotation.z -= 0.045; });
   return <group position={position}>
-    <mesh position={[0, 4, 0]} castShadow><cylinderGeometry args={[0.18, 0.35, 8, 12]} /><meshStandardMaterial color="#B6C8C3" metalness={0.7} roughness={0.28} /></mesh>
-    <group ref={blades} position={[0, 7.4, 0]}>
-      <mesh><sphereGeometry args={[0.35, 12, 12]} /><meshStandardMaterial color="#E4F1E7" emissive="#88E5B1" emissiveIntensity={0.5} /></mesh>
-      {[0, 1, 2].map((blade) => <mesh key={blade} position={[0, Math.cos(blade * Math.PI * 2 / 3) * 1.8, Math.sin(blade * Math.PI * 2 / 3) * 1.8]} rotation={[blade * Math.PI * 2 / 3, 0, 0]}><boxGeometry args={[0.18, 3.2, 0.08]} /><meshStandardMaterial color="#D5E8E1" metalness={0.4} /></mesh>)}
+    <mesh position={[0, 5.5, 0]} castShadow><cylinderGeometry args={[0.2, 0.52, 11, 16]} /><meshStandardMaterial color="#E9F2EF" metalness={0.72} roughness={0.24} /></mesh>
+    <mesh position={[0, 11.05, 0]} rotation={[0, 0, Math.PI / 2]} castShadow><boxGeometry args={[0.75, 1.9, 0.8]} /><meshStandardMaterial color="#DCEBE7" metalness={0.65} roughness={0.28} /></mesh>
+    <group ref={blades} position={[-0.95, 11.05, 0]}>
+      <mesh><sphereGeometry args={[0.38, 16, 16]} /><meshStandardMaterial color="#FFFFFF" emissive="#B5F5D0" emissiveIntensity={0.8} metalness={0.35} /></mesh>
+      {[0, 1, 2].map((blade) => <mesh key={blade} position={[0, Math.cos(blade * Math.PI * 2 / 3) * 2.25, Math.sin(blade * Math.PI * 2 / 3) * 2.25]} rotation={[blade * Math.PI * 2 / 3, 0, 0]} castShadow><boxGeometry args={[0.18, 4.1, 0.12]} /><meshStandardMaterial color="#F8FFFC" metalness={0.3} roughness={0.32} /></mesh>)}
     </group>
-    <Html position={[0, 9.2, 0]} center distanceFactor={20}><div className="pointer-events-none text-[10px] text-emerald-100">WIND · 18 kW</div></Html>
+    <mesh position={[0, 0.12, 0]}><cylinderGeometry args={[0.9, 1.05, 0.22, 20]} /><meshStandardMaterial color="#A5BDB4" roughness={0.75} /></mesh>
+    <Html position={[0, 13.7, 0]} center distanceFactor={20}><div className="pointer-events-none rounded-full border border-cyan-100/30 bg-slate-900/80 px-2 py-1 text-[10px] font-semibold text-cyan-50">WIND · 18 kW</div></Html>
   </group>;
 }
 
@@ -198,10 +200,10 @@ function AnimatedVehicle({ index, ev }: { index: number; ev: boolean }) {
     const t = (clock.getElapsedTime() * 0.035 + index * 0.18) % 1;
     const phase = t * 4;
     let x = 0; let z = 0; let rotation = 0;
-    if (phase < 1) { x = -31 + phase * 62; z = -3; rotation = 0; }
-    else if (phase < 2) { x = 31; z = -3 + (phase - 1) * 32; rotation = Math.PI / 2; }
-    else if (phase < 3) { x = 31 - (phase - 2) * 62; z = 29; rotation = Math.PI; }
-    else { x = -31; z = 29 - (phase - 3) * 32; rotation = -Math.PI / 2; }
+    if (phase < 1) { x = -40 + phase * 80; z = -36; rotation = 0; }
+    else if (phase < 2) { x = 40; z = -36 + (phase - 1) * 72; rotation = Math.PI / 2; }
+    else if (phase < 3) { x = 40 - (phase - 2) * 80; z = 36; rotation = Math.PI; }
+    else { x = -40; z = 36 - (phase - 3) * 72; rotation = -Math.PI / 2; }
     if (vehicle.current) { vehicle.current.position.set(x, 0.55, z); vehicle.current.rotation.y = rotation; }
   });
   return <group ref={vehicle}>
@@ -212,48 +214,54 @@ function AnimatedVehicle({ index, ev }: { index: number; ev: boolean }) {
 }
 
 function CampusMobility() {
-  return <group><AnimatedVehicle index={0} ev /><AnimatedVehicle index={1} ev /><AnimatedVehicle index={2} ev={false} /><AnimatedVehicle index={3} ev={false} /><AnimatedVehicle index={4} ev={false} /><Html position={[0, 0.4, 31]} center distanceFactor={20}><div className="pointer-events-none rounded-lg border border-white/10 bg-charcoal-900/90 px-2.5 py-1 text-[10px] text-white">Mobility camera · 2 EV · 3 combustion · live CO₂ estimate</div></Html></group>;
+  return <group><mesh position={[0, 0.08, -36]} receiveShadow><boxGeometry args={[88, 0.12, 3.2]} /><meshStandardMaterial color="#52666D" roughness={0.9} /></mesh><mesh position={[0, 0.08, 36]} receiveShadow><boxGeometry args={[88, 0.12, 3.2]} /><meshStandardMaterial color="#52666D" roughness={0.9} /></mesh><mesh position={[-40, 0.08, 0]} receiveShadow><boxGeometry args={[3.2, 0.12, 72]} /><meshStandardMaterial color="#52666D" roughness={0.9} /></mesh><mesh position={[40, 0.08, 0]} receiveShadow><boxGeometry args={[3.2, 0.12, 72]} /><meshStandardMaterial color="#52666D" roughness={0.9} /></mesh><mesh position={[0, 0.16, -36]}><boxGeometry args={[84, 0.03, 0.08]} /><meshStandardMaterial color="#F5E6A8" emissive="#D5C77B" emissiveIntensity={0.15} /></mesh><mesh position={[0, 0.16, 36]}><boxGeometry args={[84, 0.03, 0.08]} /><meshStandardMaterial color="#F5E6A8" emissive="#D5C77B" emissiveIntensity={0.15} /></mesh><AnimatedVehicle index={0} ev /><AnimatedVehicle index={1} ev /><AnimatedVehicle index={2} ev={false} /><AnimatedVehicle index={3} ev={false} /><AnimatedVehicle index={4} ev={false} /><Html position={[0, 0.4, 39]} center distanceFactor={20}><div className="pointer-events-none rounded-lg border border-white/10 bg-charcoal-900/90 px-2.5 py-1 text-[10px] text-white">Outer perimeter track · buildings stay clear</div></Html></group>;
 }
 
 function BiogasPlant() {
   const bubbles = useRef<THREE.Group>(null);
+  const gasFlow = useRef<(THREE.Mesh | null)[]>([]);
   useFrame(({ clock }) => { if (bubbles.current) bubbles.current.position.y = Math.sin(clock.getElapsedTime() * 2) * 0.14; });
+  useFrame(({ clock }) => { gasFlow.current.forEach((particle, index) => { if (particle) particle.position.x = -1.5 - ((clock.getElapsedTime() * 1.8 + index * 1.6) % 10); }); });
   return <group position={[31, 0, 17]}>
     <mesh position={[0, 1.4, 0]} castShadow><cylinderGeometry args={[3.2, 3.2, 2.8, 24]} /><meshStandardMaterial color="#665342" roughness={0.82} /></mesh>
     <mesh position={[0, 3.1, 0]} castShadow><sphereGeometry args={[3.15, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2]} /><meshStandardMaterial color="#A77B42" roughness={0.42} metalness={0.22} /></mesh>
+    <mesh position={[-6, 1.3, 0]} rotation={[0, 0, Math.PI / 2]}><cylinderGeometry args={[0.13, 0.13, 12, 12]} /><meshStandardMaterial color="#D1A75E" emissive="#8F6B2E" emissiveIntensity={0.45} metalness={0.5} /></mesh>
+    {Array.from({ length: 5 }, (_, index) => <mesh key={`gas-${index}`} ref={(node) => { gasFlow.current[index] = node; }} position={[-1.5 - index * 1.6, 1.3, 0]}><sphereGeometry args={[0.24, 10, 10]} /><meshStandardMaterial color="#B9F6CA" emissive="#34D399" emissiveIntensity={1.2} /></mesh>)}
     <group ref={bubbles} position={[0, 3.8, 0]}>{[[-0.7, 0, 0.2], [0.4, 0, -0.4], [1, 0, 0.4]].map(([x, y, z], index) => <mesh key={index} position={[x, y, z]}><sphereGeometry args={[0.16, 10, 10]} /><meshStandardMaterial color="#BFEAD0" emissive="#60D394" emissiveIntensity={0.7} /></mesh>)}</group>
-    <Html position={[0, 6, 0]} center distanceFactor={20}><div className="pointer-events-none rounded-lg border border-white/10 bg-charcoal-900/90 px-2.5 py-1 text-[10px] text-white">HOSTEL BIOGAS · 84 kg food waste → 35 kWh/day</div></Html>
+    <Html position={[-6, 3.5, 0]} center distanceFactor={20}><div className="pointer-events-none rounded-lg border border-emerald-200/20 bg-emerald-950/90 px-2.5 py-1 text-[10px] text-emerald-50">BIOGAS → CAFETERIA KITCHEN · reusable cooking fuel</div></Html>
   </group>;
 }
 
 function CampusSystems({ demoRunning }: { demoRunning: boolean }) {
-  return <><ClassroomAutomation demoRunning={demoRunning} /><WindTurbine position={[34, 0, -10]} /><WindTurbine position={[34, 0, -1]} /><SolarSun /><CampusMobility /><BiogasPlant /></>;
+  return <><ClassroomAutomation demoRunning={demoRunning} /><WindTurbine position={[30, 0, -14]} /><WindTurbine position={[38, 0, -5]} /><WindTurbine position={[30, 0, 4]} /><SolarSun /><CampusMobility /><BiogasPlant /></>;
 }
 
-function CameraRig({ target }: { target: [number, number, number] | null }) {
+function CameraRig({ target, controlsRef }: { target: [number, number, number] | null; controlsRef: { current: any } }) {
   const { camera } = useThree();
   const desired = useRef(new THREE.Vector3(0, 24, 38));
   const focus = useRef(new THREE.Vector3(0, 0, 0));
   useFrame(() => {
     if (target) { desired.current.set(target[0] + 10, target[1] + 8, target[2] + 11); focus.current.lerp(new THREE.Vector3(...target), 0.08); }
     else { desired.current.set(0, 24, 38); focus.current.lerp(new THREE.Vector3(0, 0, 0), 0.08); }
+    if (controlsRef.current) { controlsRef.current.target.lerp(focus.current, 0.1); controlsRef.current.update(); }
     if (target) { camera.position.lerp(desired.current, 0.055); camera.lookAt(focus.current); }
   });
   return null;
 }
 
 export default function CampusScene({ buildings, selectedId, onSelect, demoRunning = false, demoFocus = null }: { buildings: Building[]; selectedId: string | null; onSelect: (b: Building) => void; demoRunning?: boolean; demoFocus?: [number, number, number] | null }) {
+  const controlsRef = useRef<any>(null);
   const selected = useMemo(() => buildings.find((b) => b.id === selectedId) ?? null, [buildings, selectedId]);
   const target: [number, number, number] | null = selected ? [selected.position[0], selected.footprint[1] / 2, selected.position[2]] : demoFocus;
-  return <Canvas shadows camera={{ position: [0, 24, 38], fov: 42 }} dpr={[1, 1.5]} gl={{ antialias: true, powerPreference: "high-performance" }}>
-    <color attach="background" args={["#0B1210"]} /><fog attach="fog" args={["#0B1210", 44, 112]} />
-    <ambientLight intensity={0.48} /><hemisphereLight args={["#9ED7D0", "#10231B", 0.7]} />
-    <directionalLight position={[25, 32, 12]} intensity={1.7} castShadow shadow-mapSize={[1024, 1024]} shadow-camera-far={120} shadow-camera-left={-55} shadow-camera-right={55} shadow-camera-top={55} shadow-camera-bottom={-55} />
+  return <Canvas shadows camera={{ position: [0, 24, 38], fov: 42 }} dpr={[1, 1.5]} gl={{ antialias: true, powerPreference: "high-performance", toneMappingExposure: 1.35 }}>
+    <color attach="background" args={["#B9D9E7"]} /><fog attach="fog" args={["#C9E2E3", 54, 132]} />
+    <ambientLight intensity={0.82} /><hemisphereLight args={["#E8FAFF", "#456C57", 1.15]} />
+    <directionalLight position={[25, 38, 12]} intensity={2.7} castShadow shadow-mapSize={[1024, 1024]} shadow-camera-far={120} shadow-camera-left={-55} shadow-camera-right={55} shadow-camera-top={55} shadow-camera-bottom={-55} />
     <CampusGround buildings={buildings} />
     <CampusSystems demoRunning={demoRunning} />
-    <gridHelper args={[140, 28, "#1C3328", "#152821"]} />
+    <gridHelper args={[140, 28, "#6D907B", "#A5BDA7"]} />
     {buildings.map((b) => <BuildingMesh key={b.id} building={b} isSelected={b.id === selectedId} onSelect={onSelect} />)}
     <ContactShadows position={[0, 0, 0]} opacity={0.42} scale={110} blur={2.5} far={34} />
-    <CameraRig target={target} /><OrbitControls enablePan enableRotate minPolarAngle={0.12} maxPolarAngle={Math.PI - 0.12} minDistance={5} maxDistance={120} makeDefault />
+    <CameraRig target={target} controlsRef={controlsRef} /><OrbitControls ref={controlsRef} enablePan enableRotate minPolarAngle={0.12} maxPolarAngle={Math.PI - 0.12} minDistance={5} maxDistance={120} makeDefault />
   </Canvas>;
 }

@@ -27,6 +27,25 @@ Last updated: 2026-10-15T07:38:00Z (UTC)
 - Full demo tour: **implemented** (the Play full demo button visits every demo
   building and then classroom, solar, wind, traffic, and biogas stops with
   automatic camera focus and a visible progress label).
+- Daylight visual pass: **implemented** (bright sky/fog, lighter building
+  facades, readable roads and ground, brighter windows, daylight hemisphere,
+  stronger sun, higher exposure, and lighter grid lines for full-campus
+  visibility).
+- Renewable optimization UX: **implemented** (clickable solar/wind/biogas
+  dashboard, sunlight and wind intensity drivers, renewable share and grid
+  avoided metrics, synchronized building-focus zoom, and animated biogas
+  particles flowing through a pipe back to the cafeteria kitchen).
+- Financial comparison UX: **implemented** (second clickable ₹ cost graph
+  dashboard comparing normal city electricity with post-install solar, wind,
+  biogas, and classroom automation; contribution bars, LPG avoided, install
+  estimate, payback, monthly/annual savings, and cumulative savings curve).
+- Wind farm visual pass: **implemented** (three tall staggered turbines with
+  tapered towers, nacelles, hub assemblies, three long blades, base plates,
+  animated rotors, and readable kW labels).
+- Motion refinement: **implemented** (vehicles follow a dedicated marked
+  outer-perimeter four-sided campus track beyond all building footprints, wind turbine rotors turn clockwise, and student
+  animation is constrained between an interior doorway zone and classroom
+  desks so no students spawn outside the building).
 - Milestones 6–11: **not started**.
 
 ## Working features (verified, not claimed)

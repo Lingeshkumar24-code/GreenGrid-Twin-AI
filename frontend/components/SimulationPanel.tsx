@@ -13,7 +13,7 @@ export default function SimulationPanel({ snapshot }: { snapshot: SimulationSnap
     <div className="flex items-center justify-between px-1 pb-3"><div><p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-300">Live campus simulation</p><p className="mt-1 text-xs text-ink-400">Auto-running demo · {time} campus time</p></div><span className="flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-2 py-1 text-[10px] text-emerald-200"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-300" />LIVE</span></div>
     <div className="grid grid-cols-2 gap-2">
       <Metric label="Classrooms" value={snapshot.occupied ? `${snapshot.students} inside` : "Empty"} detail={snapshot.occupied ? "Lights + fans ON" : `${snapshot.classroomSavingsKw.toFixed(1)} kW avoided`} tone="cyan" />
-      <Metric label="Renewables" value={`${snapshot.renewableKw.toFixed(1)} kW`} detail={`Solar ${snapshot.solarKw.toFixed(1)} · wind ${snapshot.windKw.toFixed(1)}`} tone="emerald" />
+      <Metric label="Renewables" value={`${snapshot.renewableKw.toFixed(1)} kW`} detail={`Sun ${snapshot.sunlightPercent}% · wind ${snapshot.windSpeedKmh} km/h`} tone="emerald" />
       <Metric label="Grid draw" value={`${snapshot.gridKw.toFixed(1)} kW`} detail="After solar + wind generation" tone="amber" />
       <Metric label="Mobility CO₂" value={`${snapshot.vehicleKgCo2PerHour.toFixed(2)} kg/h`} detail={`${snapshot.evCount} EV · ${snapshot.otherVehicleCount} other vehicles`} tone="rose" />
       <Metric label="Biogas" value={`${snapshot.biogasKwhPerDay.toFixed(1)} kWh/day`} detail={`${snapshot.foodWasteKgPerDay} kg food waste reused`} tone="emerald" />

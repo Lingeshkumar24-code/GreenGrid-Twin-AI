@@ -1,0 +1,32 @@
+"use client";
+
+import type { SimulationSnapshot } from "@/lib/simulation";
+
+const money = (value: number) => `₹${Math.max(0, Math.round(value)).toLocaleString("en-IN")}`;
+
+function Bar({ label, value, max, color, suffix = "" }: { label: string; value: number; max: number; color: string; suffix?: string }) {
+  return <div className="space-y-1.5"><div className="flex items-center justify-between text-xs"><span className="text-ink-200">{label}</span><span className="font-semibold text-white">{money(value)}{suffix}</span></div><div className="h-3 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full transition-all duration-700" style={{ width: `${Math.min(100, (value / max) * 100)}%`, background: color }} /></div></div>;
+}
+
+export default function CostSavingsDashboard({ snapshot, onClose }: { snapshot: SimulationSnapshot; onClose: () => void }) {
+  const solarSaving = snapshot.solarKw * 15;
+  const windSaving = snapshot.windKw * 15;
+  const biogasSaving = snapshot.biogasKwhPerDay * 15;
+  const classroomSaving = snapshot.classroomSavingsKw * 15;
+  const lpgSavedKg = snapshot.biogasKwhPerDay / 13.6;
+  const lpgSaving = lpgSavedKg * 110;
+  const afterInstall = Math.max(0, snapshot.gridOnlyDailyCost - snapshot.dailyCostSaving);
+  const maxCost = Math.max(snapshot.gridOnlyDailyCost, afterInstall);
+  const monthly = snapshot.dailyCostSaving * 30;
+  const annual = snapshot.dailyCostSaving * 365;
+  const cumulative = Array.from({ length: 7 }, (_, month) => Math.round(month * monthly));
+  const linePoints = cumulative.map((value, index) => `${18 + index * 43},${112 - (value / Math.max(1, annual / 2)) * 90}`).join(" ");
+  return <div className="pointer-events-auto absolute right-4 top-20 z-30 max-h-[calc(100vh-7rem)] w-[min(440px,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-amber-200/20 bg-[#17302b]/96 p-4 shadow-2xl shadow-black/40 backdrop-blur-xl"><div className="flex items-start justify-between"><div><p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-200">Financial impact dashboard</p><h3 className="mt-1 text-lg font-semibold text-white">Normal grid vs GreenGrid</h3><p className="mt-1 text-[10px] text-ink-400">Demo estimate · all values in Indian rupees</p></div><button onClick={onClose} className="text-xs text-ink-400 hover:text-white">Close</button></div>
+    <div className="mt-4 grid grid-cols-2 gap-2"><div className="rounded-xl border border-rose-200/15 bg-rose-300/[0.06] p-3"><p className="text-[10px] uppercase text-ink-500">Normal grid / day</p><p className="mt-1 text-xl font-semibold text-rose-100">{money(snapshot.gridOnlyDailyCost)}</p><p className="text-[10px] text-ink-400">city electricity only</p></div><div className="rounded-xl border border-emerald-200/15 bg-emerald-300/[0.06] p-3"><p className="text-[10px] uppercase text-ink-500">After installation / day</p><p className="mt-1 text-xl font-semibold text-emerald-100">{money(afterInstall)}</p><p className="text-[10px] text-ink-400">solar + wind + biogas</p></div></div>
+    <section className="mt-4 rounded-xl border border-white/10 bg-black/10 p-3"><div className="mb-3 flex items-center justify-between"><p className="text-xs font-semibold text-white">Daily operating cost comparison</p><span className="text-xs font-semibold text-emerald-200">Save {money(snapshot.dailyCostSaving)}/day</span></div><div className="space-y-3"><Bar label="Normal city electricity" value={snapshot.gridOnlyDailyCost} max={maxCost} color="linear-gradient(90deg,#FB7185,#FDA4AF)" /><Bar label="After GreenGrid installation" value={afterInstall} max={maxCost} color="linear-gradient(90deg,#34D399,#A7F3D0)" /></div></section>
+    <section className="mt-3 rounded-xl border border-white/10 bg-black/10 p-3"><p className="mb-3 text-xs font-semibold text-white">Where the savings come from</p><div className="space-y-3"><Bar label="Solar panels" value={solarSaving} max={snapshot.dailyCostSaving} color="linear-gradient(90deg,#F59E0B,#FDE68A)" suffix=" / day" /><Bar label="Wind turbines" value={windSaving} max={snapshot.dailyCostSaving} color="linear-gradient(90deg,#06B6D4,#A5F3FC)" suffix=" / day" /><Bar label="Biogas replacement" value={biogasSaving} max={snapshot.dailyCostSaving} color="linear-gradient(90deg,#10B981,#BBF7D0)" suffix=" / day" /><Bar label="Classroom automation" value={classroomSaving} max={snapshot.dailyCostSaving} color="linear-gradient(90deg,#8B5CF6,#DDD6FE)" suffix=" / day" /></div></section>
+    <section className="mt-3 grid grid-cols-2 gap-2"><div className="rounded-xl border border-cyan-200/15 bg-cyan-300/[0.06] p-3"><p className="text-[10px] uppercase text-ink-500">LPG avoided</p><p className="mt-1 text-lg font-semibold text-cyan-100">{lpgSavedKg.toFixed(1)} kg/day</p><p className="text-[10px] text-ink-400">≈ {money(lpgSaving)}/day saved</p></div><div className="rounded-xl border border-amber-200/15 bg-amber-300/[0.06] p-3"><p className="text-[10px] uppercase text-ink-500">Install estimate</p><p className="mt-1 text-lg font-semibold text-amber-100">{money(snapshot.installCost)}</p><p className="text-[10px] text-ink-400">payback {snapshot.paybackYears} years</p></div></section>
+    <section className="mt-3 rounded-xl border border-white/10 bg-black/10 p-3"><div className="flex items-center justify-between"><p className="text-xs font-semibold text-white">Cumulative savings curve</p><span className="text-[10px] text-emerald-200">Year 1: {money(annual)}</span></div><svg viewBox="0 0 276 128" className="mt-2 h-28 w-full" role="img" aria-label="Cumulative rupee savings over six months"><path d="M18 112 H276 M18 20 V112" stroke="rgba(255,255,255,.15)" /><polyline points={linePoints} fill="none" stroke="#6EE7B7" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" /><text x="18" y="125" fill="#94A3B8" fontSize="9">Now</text><text x="232" y="125" fill="#94A3B8" fontSize="9">6 months</text></svg><div className="mt-1 flex justify-between text-[10px] text-ink-500"><span>Monthly saving: {money(monthly)}</span><span>Annual saving: {money(annual)}</span></div></section>
+    <div className="mt-3 rounded-xl border border-emerald-200/15 bg-emerald-300/[0.06] p-3 text-[11px] leading-5 text-emerald-50"><b>Interpretation:</b> normal city electricity pays for the full load. After installation, solar and wind reduce grid units, biogas replaces part of cafeteria LPG, and classroom automation removes waste when rooms are empty.</div>
+  </div>;
+}

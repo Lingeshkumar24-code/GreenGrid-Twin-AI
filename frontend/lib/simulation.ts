@@ -6,7 +6,9 @@ export type SimulationSnapshot = {
   classroomLoadKw: number;
   classroomSavingsKw: number;
   solarKw: number;
+  sunlightPercent: number;
   windKw: number;
+  windSpeedKmh: number;
   renewableKw: number;
   gridKw: number;
   evCount: number;
@@ -31,8 +33,10 @@ export function getSimulationSnapshot(hour: number): SimulationSnapshot {
   const classroomSavingsKw = occupied ? 0 : 18.4;
   const daylight = Math.max(0, Math.sin(((normalized - 6) / 12) * Math.PI));
   const windFactor = 0.55 + 0.22 * Math.sin((normalized / 24) * Math.PI * 2 + 1.1);
+  const sunlightPercent = Math.round(daylight * 100);
   const solarKw = Number((42 * daylight).toFixed(1));
   const windKw = Number((18 * Math.max(0.2, windFactor)).toFixed(1));
+  const windSpeedKmh = Number((14 + Math.max(0, windFactor - 0.4) * 18).toFixed(1));
   const renewableKw = Number((solarKw + windKw).toFixed(1));
   const campusDemandKw = 275.7 + (occupied ? 22 : -12);
   const gridKw = Number(Math.max(0, campusDemandKw - renewableKw).toFixed(1));
@@ -49,5 +53,5 @@ export function getSimulationSnapshot(hour: number): SimulationSnapshot {
   const annualCostSaving = Number((dailyCostSaving * 365).toFixed(0));
   const installCost = 18400000;
   const paybackYears = Number((installCost / Math.max(1, dailyCostSaving * 365)).toFixed(1));
-  return { hour: normalized, minute: Math.round(((hour % 1) + 1) % 1 * 60), occupied, students, classroomLoadKw, classroomSavingsKw, solarKw, windKw, renewableKw, gridKw, evCount, otherVehicleCount, vehicleKgCo2PerHour, vehicleAvoidedKgPerHour, foodWasteKgPerDay, biogasKwhPerDay, biogasKgCo2Avoided, dailyCostSaving, gridOnlyDailyCost, annualCostSaving, installCost, paybackYears };
+  return { hour: normalized, minute: Math.round(((hour % 1) + 1) % 1 * 60), occupied, students, classroomLoadKw, classroomSavingsKw, solarKw, sunlightPercent, windKw, windSpeedKmh, renewableKw, gridKw, evCount, otherVehicleCount, vehicleKgCo2PerHour, vehicleAvoidedKgPerHour, foodWasteKgPerDay, biogasKwhPerDay, biogasKgCo2Avoided, dailyCostSaving, gridOnlyDailyCost, annualCostSaving, installCost, paybackYears };
 }
